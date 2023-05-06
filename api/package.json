@@ -1,0 +1,46 @@
+{
+  "name": "adlin-meeting",
+  "version": "1.0.0",
+  "description": "Adlin meeting app",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node ./mock/seed.js && nodemon -L ./server.js localhost 3080",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "ENVIRONMENT=$ENVIRONMENT webpack",
+    "prod-build": "ENVIRONMENT='production' gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/corneliusthefirst/adlin-meeting.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/corneliusthefirst/adlin-meeting/issues"
+  },
+  "homepage": "https://github.com/corneliusthefirst/adlin-meeting#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-mongo-sanitize": "^2.2.0",
+    "helmet": "^6.1.5",
+    "http-status": "^1.6.2",
+    "joi": "^17.9.2",
+    "mongodb": "^3.6.3",
+    "mongoose": "^5.11.10",
+    "pine": "^1.1.1",
+    "xss-clean": "^0.1.1"
+  },
+  "devDependencies": {
+    "del": "^6.0.0",
+    "fancy-log": "^2.0.0",
+    "gulp": "^4.0.2",
+    "gulp-zip": "^5.1.0",
+    "nodemon": "^2.0.7",
+    "webpack": "^5.68.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-stream": "^7.0.0"
+  }
+}
