@@ -1,5 +1,8 @@
-name: '' #set whatevername you want to your github job
-on: {} # set the events you would like to trigger this job
+name: 'Adlin Workflow' #set whatevername you want to your github job
+on:
+  push:
+    branches:
+      - "main" # set the events you would like to trigger this job
 jobs:
   build:
     runs-on: ubuntu-latest
