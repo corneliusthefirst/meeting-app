@@ -2,7 +2,7 @@ module.exports = {
     devServer: {
       proxy: {
         '^/api': {
-          target: 'http://adlin-meeting-api:3080',
+          target: process.env.VITE_BACKEND_URL,
           changeOrigin: true
         },
       }
