@@ -82,7 +82,7 @@ export default {
                 console.log("err", err)
             })
            }else{
-                this.setError("Please select date and period")
+                this.setError("Please select date and period and click on get available rooms button to reserve a room")
            }
         }
     }
