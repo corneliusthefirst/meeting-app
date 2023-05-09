@@ -33,9 +33,9 @@
           <div class="flex flex-row flex-wrap ml-2">
             <div v-for="eq in equipements" :key="eq"
               class="px-2 py-2 text-xs font-medium leading-none text-center text-purple-400 bg-purple-100 rounded-full mr-2">
-            <span class="pl-2">
-              {{ eq }}
-            </span>
+              <span class="pl-2">
+                {{ eq }}
+              </span>
               <button @click="removeEquipement(eq)"
                 class="px-2 py-2 text-xs font-medium leading-none text-center text-purple-400 bg-purple-100 rounded-full mr-2">
                 X
@@ -51,28 +51,30 @@
           </dropdown>
         </div>
 
-
-
       </div>
 
       <div class="flex flex-row justify-end lg:w-2/3 md:w-full sm:w-full py-8">
         <button @click="getAvailableRooms()"
           class="py-2 px-8 rounded shadow-md flex items-center text-sm text-purple-400">Get Available Rooms</button>
       </div>
+      <div class="flex flex-row justify-start lg:w-2/3 md:w-full sm:w-full ">
+         <p class="text-red-400 text-md mt-4 mb-8"> {{ error }}</p>
+        </div>
+
 
 
       <div v-for="room in rooms" :key="room._id" class="lg:w-2/3 md:w-full sm:w-full mx-8">
         <MeetingRoom :room="{
-            id: room._id,
-            name: room.name,
-            description: room.description,
-            capacity: room.capacity,
-            equipements: room.equipements,
-          }" :reservation="{
-            date: date,
-            startPeriod: toSeconds(startPeriod) || undefined,
-            endPeriod: toSeconds(endPeriod) || undefined,
-          }" :getAvailableRooms="getAvailableRooms"/>
+          id: room._id,
+          name: room.name,
+          description: room.description,
+          capacity: room.capacity,
+          equipements: room.equipements,
+        }" :reservation="{
+  date: date,
+  startPeriod: toSeconds(startPeriod) || undefined,
+  endPeriod: toSeconds(endPeriod) || undefined,
+}" :getAvailableRooms="getAvailableRooms" :setError="setError" />
       </div>
 
     </div>
@@ -111,14 +113,15 @@ export default {
       capacityList: capacityList,
       equipementList: equipmentList,
       equipement: equipmentList[0],
-      equipements: []
+      equipements: [],
+      error: null
     }
   },
   methods: {
     toSeconds(timeStr) {
       if (timeStr) {
         const [hours, minutes] = `${timeStr}`.split(':').map(Number);
-        return hours * 3600 + minutes * 60 ;
+        return hours * 3600 + minutes * 60;
       } else {
         return null;
       }
@@ -127,9 +130,10 @@ export default {
     getAvailableRooms() {
       console.log(`date: ${this.date} startPeriod: ${this.startPeriod} endPeriod: ${this.endPeriod} ${this.toSeconds(this.endPeriod)} capacity: ${this.capacity} equipements: ${this.equipements}`)
       this.isLoading = true;
+      this.error = null;
       getAvailableRooms({
         date: this.date,
-        startPeriod:  this.toSeconds(this.startPeriod),
+        startPeriod: this.toSeconds(this.startPeriod),
         endPeriod: this.toSeconds(this.endPeriod),
         capacity: Number(this.capacity.name),
         equipements: this.equipements
@@ -138,7 +142,7 @@ export default {
         this.rooms = response.rooms || [];
       })
     },
-   init() {
+    init() {
       this.isLoading = true;
       getAvailableRooms({}).then(response => {
         this.isLoading = false;
@@ -154,6 +158,9 @@ export default {
     },
     removeEquipement(payload) {
       this.equipements = this.equipements.filter(equipement => equipement !== payload);
+    },
+    setError(payload) {
+      this.error = payload;
     }
   },
   mounted() {

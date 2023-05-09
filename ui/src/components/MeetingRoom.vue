@@ -51,6 +51,10 @@ export default {
         getAvailableRooms: {
             type: Function,
             default: () => {}
+        },
+        setError: {
+            type: Function,
+            default: () => {}
         }
     },
     data() {
@@ -74,8 +78,11 @@ export default {
                 this.getAvailableRooms()
                 console.log("res", res)
             }).catch((err) => {
+                this.setError(err)
                 console.log("err", err)
             })
+           }else{
+                this.setError("Please select date and period")
            }
         }
     }
